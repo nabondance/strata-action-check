@@ -8,5 +8,15 @@ jobs:
     steps:
       - uses: actions/checkout@v7
       - uses: nabondance/strata@v0
+        id: strata
         with:
           limit-up-front-tokens: 500
+      - if: always()
+        env:
+          SUMMARY: ${{ steps.strata.outputs.summary-file }}
+          RESULT: ${{ steps.strata.outputs.limit-result }}
+        run: |
+          echo "limit-result=$RESULT"
+          echo "---SUMMARY---"
+          cat "$SUMMARY"
+          echo "---END---"
