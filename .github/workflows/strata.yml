@@ -1,0 +1,12 @@
+name: Agent context
+on: pull_request
+permissions:
+  contents: read
+jobs:
+  strata:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: nabondance/strata@v0
+        with:
+          limit-up-front-tokens: 500
