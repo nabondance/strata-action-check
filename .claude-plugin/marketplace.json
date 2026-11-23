@@ -1,0 +1,1 @@
+{"name": "team-tools", "owner": {"name": "Example"}, "plugins": [{"name": "fmt", "source": "./plugins/fmt"}, {"name": "ext", "source": {"source": "github", "repo": "example/ext"}}]}

@@ -7,6 +7,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
-      - uses: nabondance/strata@v0
+      - uses: nabondance/strata@b2ecce19ee1bcfa367561546e1e03876d6c73004
+        id: strata
         with:
           limit-up-front-tokens: 500
+      - if: always()
+        env:
+          SUMMARY: ${{ steps.strata.outputs.summary-file }}
+          JSON_FILE: ${{ steps.strata.outputs.json-file }}
+        run: |
+          echo "summary lines: $(grep -c "^Agent plugin references" "$SUMMARY")"
+          jq -c '{schema: .schemaVersion, after: .comparison.plugins.afterPlugins, upFront: [.upFront[].provider]}' "$JSON_FILE"
